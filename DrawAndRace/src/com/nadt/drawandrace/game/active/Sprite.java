@@ -56,6 +56,10 @@ public class Sprite extends ShapeDrawable{
 		return this.pHeight;
 	}
 	
+	public float getAngle() {
+		return this.pAngle;
+	}
+	
 	public void draw(Canvas canvas, Paint paint) {
 		canvas.save();
 		canvas.rotate(pAngle, pX, pY);

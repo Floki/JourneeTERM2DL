@@ -7,6 +7,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.nadt.drawandrace.game.GameActivity;
+import com.nadt.drawandrace.game.active.CarActive;
 import com.nadt.drawandrace.game.active.Sprite;
 import com.nadt.drawandrace.utils.Tools;
 
@@ -23,10 +24,10 @@ public class GameEngine {
 	private int gameHeight;
 	private boolean reallyEnd;
 	// Active sprite
-	private Sprite playerShape;
+	private CarActive playerShape;
 	
 	public GameEngine() {
-		playerShape = new Sprite(GameActivity.virtualXToScreenX(GameActivity.virtualSize/2), 
+		playerShape = new CarActive(GameActivity.virtualXToScreenX(GameActivity.virtualSize/2), 
 										   GameActivity.virtualYToScreenY(GameActivity.virtualSize/2), 
 										   GameActivity.virtualXToScreenX(50), 
 										   GameActivity.virtualXToScreenX(75), 
@@ -39,6 +40,9 @@ public class GameEngine {
 	
 	private void playLoop() {
 		playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getX(), playerShape.getY()));
+		if(userIsTouching) {
+			playerShape.moveWithSpeed(GameActivity.virtualXToScreenX(10));
+		}
 	}
 
 	public void setUserTouchPosition(float x, float y) {
