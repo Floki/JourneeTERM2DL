@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.nadt.drawandrace.game.GameActivity;
 import com.nadt.drawandrace.utils.Constants;
 import com.nadt.drawandrace.utils.ImageManipulation;
 import com.nadt.drawandrace.utils.Tools;
@@ -34,6 +35,7 @@ public class GalleryActivty extends Activity {
 	private float touchingX;
 	private boolean alreadyChange;
 	private File photo;
+	private Button buttonSelect;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,21 @@ public class GalleryActivty extends Activity {
 		}
 		Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
 		Button buttonCamera = (Button) findViewById(R.id.camera);
+		buttonSelect = (Button) findViewById(R.id.buttonSelectPicture);
+		
+		buttonSelect.setVisibility( Button.INVISIBLE );
+		
+		buttonSelect.setOnClickListener( new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(GalleryActivty.this, GameActivity.class);
+				String[] trackImg = {photo.getPath()};
+				intent.putExtra("SELECTED_TRACK_IMAGE", trackImg);
+				startActivityForResult(intent, 0);
+			}
+		});
+		
 		buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -111,9 +128,9 @@ public class GalleryActivty extends Activity {
 					}
 					Tools.log(this, "Rotate : " + angle);
 					ImageView imageView = (ImageView) findViewById(R.id.imgView);
-					Matrix matrix=new Matrix();
+					Matrix matrix = new Matrix();
 					imageView.setScaleType(ScaleType.MATRIX);   //required
-					matrix.postRotate(angle, screenWidth / 2, screenHeight / 2);
+					matrix.postRotate(angle, imageView.getDrawable().getBounds().width()/2, imageView.getDrawable().getBounds().height()/2);
 					imageView.setImageMatrix(matrix);
 				}
 				return true;
@@ -153,6 +170,7 @@ public class GalleryActivty extends Activity {
 			try {
 				File f2 = ImageManipulation.toBlackAndWhite( photo );
 				if( f2.exists() ) {
+					buttonSelect.setVisibility( Button.VISIBLE );
 					( (ImageView) findViewById(R.id.imgView) ).setImageURI(Uri.fromFile(f2));
 				}
 			} catch (FileNotFoundException e) {
