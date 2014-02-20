@@ -59,17 +59,18 @@ public class GameEngine {
 	private int gameState;
 	private int touchTimer;
 	// Timer
-	private int timer;
+	private long timer;
+	private long finalTimer;
 	
 	public GameEngine() {
 		track = new RaceTrack(GameActivity.virtualXToScreenX(300), 10, 10);
 		boost = false;
 		speed = 0;
 		maxSpeed = GameActivity.virtualXToScreenX(50);
-		boostSpeed = GameActivity.virtualXToScreenX(80);
+		boostSpeed = GameActivity.virtualXToScreenX(150);
 		gameState = PUT_START;
 		touchTimer = 0;
-		timer = 0;
+		timer = System.currentTimeMillis();
 	}
 	
 	public void engineLoop() {
@@ -112,6 +113,7 @@ public class GameEngine {
 		Tools.log(this, getCarXPosition() + " " + getCarYPosition() + " " + finish.getInitialX() + " " + finish.getInitialY() + " " + finish.getInitialX() + finish.getWidth() + " " + finish.getInitialY() + finish.getHeight());
 		if(getCarXPosition() > finish.getInitialX() - finish.getWidth() / 2 && getCarXPosition() < finish.getInitialX() + finish.getWidth() / 2
 		&& getCarYPosition() > finish.getInitialY() - finish.getHeight() / 2&& getCarYPosition() < finish.getInitialY() + finish.getHeight() + 2) {
+			finalTimer = getTimer();
 			gameState = FINISH;
 		}
 		if(userIsTouching) {
@@ -166,6 +168,7 @@ public class GameEngine {
 	}
 	
 	private void putStart() {
+		timer = System.currentTimeMillis();
 		if(userIsTouching && touchTimer < 50 && start == null) {
 			scroll();
 		}
@@ -183,6 +186,7 @@ public class GameEngine {
 
 
 	private void putFinish() {
+		timer = System.currentTimeMillis();
 		if(userIsTouching && touchTimer < 50 && finish == null) {
 			scroll();
 		}
@@ -273,7 +277,16 @@ public class GameEngine {
 		return this.speed;
 	}
 	
-	public int getTimer() {
-		return this.timer;
+	public long getTimer() {
+		switch(gameState) {
+		case PUT_START:
+		case PUT_FINISH:
+			return 0;
+		case RACE :
+			return System.currentTimeMillis() - this.timer;
+		case FINISH:
+			return this.finalTimer;
+		}
+		return 0;
 	}
 }
