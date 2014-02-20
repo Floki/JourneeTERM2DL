@@ -19,7 +19,8 @@ import android.graphics.Paint;
 public final class ImageManipulation {
 
 	public static final String TMP_FILE_NAME = "/tmp.png";
-	public static final String BLACK_WHITE_FILE_PATH = Constants.storage + TMP_FILE_NAME;
+	public static final String BLACK_WHITE_FILE_PATH = Constants.storage
+			+ TMP_FILE_NAME;
 	public static int threshold = Color.GRAY;
 
 	/**
@@ -32,9 +33,8 @@ public final class ImageManipulation {
 	 * Returns a black and white (only black and white, no grey) bitmap of the
 	 * given bitmap
 	 * 
-	 * // TODO : optimize ? 
-	 * // TODO : //
-	 * // TODO : log %
+	 * // TODO : optimize ? // TODO : // // TODO : log %
+	 * 
 	 * @param bmpSrc
 	 * @return
 	 */
@@ -43,34 +43,26 @@ public final class ImageManipulation {
 		final int height;
 		height = bmpSrc.getHeight();
 		width = bmpSrc.getWidth();
-		
+
 		final Bitmap bmpBlackAndWhite = toGrayscale(bmpSrc);
-		
-		
-		Thread thread = new Thread()
-		{
-		    @Override
-		    public void run() {
-		        try {
-		            while(true) {
-		                sleep(1000);
-		        		int color;
-		        		for (int i = width; i-- > 0;) {
-		        			for (int j = height; j-- > 0;) {
-		        				color = bmpSrc.getPixel(i, j) > threshold ? Color.WHITE
-		        						: Color.BLACK;
-		        				bmpBlackAndWhite.setPixel(i, j, color);
-		        			}
-		        		}
-		            }
-		        } catch (InterruptedException e) {
-		            e.printStackTrace();
-		        }
-		    }
+
+		Thread thread = new Thread() {
+			@Override
+			public void run() {
+				int color;
+				for (int i = width; i-- > 0;) {
+					for (int j = height; j-- > 0;) {
+						color = bmpSrc.getPixel(i, j) > threshold ? Color.WHITE
+								: Color.BLACK;
+						bmpBlackAndWhite.setPixel(i, j, color);
+					}
+				}
+
+			}
 		};
 
 		thread.start();
-		
+
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
@@ -109,18 +101,20 @@ public final class ImageManipulation {
 	 * 
 	 * @param input
 	 * @return
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
 	public static File toBlackAndWhite(File input) throws FileNotFoundException {
-		if(!input.exists()) {
-			throw new FileNotFoundException("The given File does not exist : " + input.getAbsolutePath());
-		} else if(!input.isFile()) {
-			throw new IllegalArgumentException("The given File is NOT a file : " + input.getAbsolutePath());
-		} else if(!input.canRead()) {
-			throw new IllegalArgumentException("Can't read from File : " + input.getAbsolutePath());
+		if (!input.exists()) {
+			throw new FileNotFoundException("The given File does not exist : "
+					+ input.getAbsolutePath());
+		} else if (!input.isFile()) {
+			throw new IllegalArgumentException(
+					"The given File is NOT a file : " + input.getAbsolutePath());
+		} else if (!input.canRead()) {
+			throw new IllegalArgumentException("Can't read from File : "
+					+ input.getAbsolutePath());
 		}
-		
-		
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		Bitmap bitmap = BitmapFactory.decodeFile(input.getPath(), options);
@@ -134,6 +128,7 @@ public final class ImageManipulation {
 
 	/**
 	 * Saves the given bitmap to a File at the given filepath
+	 * 
 	 * @param filePath
 	 * @param bitmap
 	 * @return
