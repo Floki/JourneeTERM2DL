@@ -35,6 +35,10 @@
             android:noHistory="true"
             android:screenOrientation="portrait" 
             android:name="com.nadt.drawandrace.game.GameActivity"></activity>
+        
+        <activity 
+            android:screenOrientation="portrait" 
+            android:name="com.nadt.drawandrace.gallery.GalleryActivty"></activity>
 
     </application>
 
