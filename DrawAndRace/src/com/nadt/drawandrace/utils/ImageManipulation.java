@@ -21,7 +21,7 @@ public final class ImageManipulation {
 	public static final String TMP_FILE_NAME = "/tmp.png";
 	public static final String BLACK_WHITE_FILE_PATH = Constants.storage
 			+ TMP_FILE_NAME;
-	public static int threshold = Color.GRAY;
+	public static int threshold = 0xff666666;
 
 	/**
 	 * Private constructor to prevent class instanciation
@@ -33,7 +33,7 @@ public final class ImageManipulation {
 	 * Returns a black and white (only black and white, no grey) bitmap of the
 	 * given bitmap
 	 * 
-	 * // TODO : optimize ? // TODO : // // TODO : log %
+	 * // TODO : optimize ? // TODO : log %
 	 * 
 	 * @param bmpSrc
 	 * @return
