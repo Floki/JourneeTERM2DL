@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.nadt.drawandrace.CustomActivity;
+import com.nadt.drawandrace.gallery.GalleryActivty;
 import com.nadt.drawandrace.game.GameActivity;
 import com.nadt.drawandrace.utils.Constants;
 import com.nadt.drawandrace.utils.FileAccess;
@@ -46,6 +47,7 @@ public class Title extends CustomActivity {
 
 		setContentView(R.layout.title_activity);
 		Button start = (Button) findViewById(R.id.playButton);
+		Button gallery = (Button) findViewById(R.id.galleryButton);
 		Button exit = (Button) findViewById(R.id.exitButton);
 
 		start.setOnClickListener(new OnClickListener() {
@@ -58,6 +60,14 @@ public class Title extends CustomActivity {
 		
 		Button imageCapture = (Button) findViewById( R.id.imageCapture );
 		
+
+		gallery.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {	
+				Intent myIntent = new Intent(Title.this, GalleryActivty.class);
+				startActivityForResult(myIntent, 0);
+			}
+		});
 
 		imageCapture.setOnClickListener(new OnClickListener() {
 			@Override
