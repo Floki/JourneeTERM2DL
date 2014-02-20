@@ -94,7 +94,7 @@ public class GameView extends SurfaceView {
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(GameActivity.virtualXToScreenX(50));
 			canvas.drawText(""+gameEngine.getSpeed() + " km/h", GameActivity.virtualXToScreenX(50), GameActivity.virtualYToScreenY(50), paint);
-			canvas.drawText(""+gameEngine.getTimer() + "", GameActivity.virtualXToScreenX(950), GameActivity.virtualYToScreenY(50), paint);
+			canvas.drawText(""+gameEngine.getTimer() + "", GameActivity.virtualXToScreenX(900), GameActivity.virtualYToScreenY(50), paint);
 		}
 	}
 

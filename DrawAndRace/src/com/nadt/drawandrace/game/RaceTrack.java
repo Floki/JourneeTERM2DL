@@ -40,8 +40,9 @@ public class RaceTrack {
 //		}
 //		
 //		return false;
-		if( blackAndWhiteBitmap.getPixel(x/6, y/6) == Color.BLACK) {
-			Tools.err(this, "*** BOOM ***");
+		if( x < 0 || y < 0 || x / 6 > blackAndWhiteBitmap.getWidth()
+			|| y / 6 > blackAndWhiteBitmap.getHeight()
+			|| blackAndWhiteBitmap.getPixel(x/6, y/6) == Color.BLACK) {
 			return true;
 		}
 		return false;
