@@ -87,8 +87,7 @@ public final class ImageManipulation {
 	 * @param maxHeight
 	 * @return
 	 */
-	@SuppressWarnings("unused")
-	private static Bitmap scaleDown(final Bitmap bmpSrc, int maxWidth, int maxHeight) {
+	public static Bitmap scaleDown(final Bitmap bmpSrc, int maxWidth, int maxHeight) {
 		int height = bmpSrc.getHeight();
 		int width = bmpSrc.getWidth(); 
 		Bitmap scaled;
@@ -109,6 +108,48 @@ public final class ImageManipulation {
 			scaled = bmpSrc;
 		}
 		return scaled;
+	}
+	
+	/**
+	 * Test if transparency is FE
+	 * @param color
+	 * @return
+	 */
+	public static boolean isPixelEncodedWall(int color) {
+		return (color ^ 0x01000000) == 0x01000000;
+	}
+	
+	
+	/**
+	 * Encode the given blackAndWhite Bitmap into the given map
+	 * If a pixel of the blackAndWhite bitmap is black, the corresponding
+	 * pixel of the map will have transparency FE instead of FF
+	 * 
+	 * @param map
+	 * @param blackAndWhite
+	 * @return
+	 */
+	public static Bitmap encodeTrack(Bitmap map, Bitmap blackAndWhite) {
+		if(map.getWidth() != blackAndWhite.getWidth() 
+				|| map.getHeight() != blackAndWhite.getHeight()) {
+			throw new RuntimeException("The two bitmaps don't have the same size!");
+		}
+		
+		int width = map.getWidth();
+		int height = map.getHeight();
+		
+		for (int i = width; i --> 0;) {
+			for (int j = height; j --> 0;) {
+				
+				if(blackAndWhite.getPixel(i, j) == Color.BLACK) {
+					int color = map.getPixel(i, j);
+					color ^= 0x01000000; // changes transparency from ff to fe
+					map.setPixel(i, j, color);
+				}
+			}
+		}
+		
+		return map;
 	}
 
 	/**
