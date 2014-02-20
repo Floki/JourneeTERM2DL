@@ -8,6 +8,14 @@ public class Tools {
 		Log.d(origin.getClass().getName(), "" + message);
 	}
 	
+	public static void warn(Object origin, Object message) {
+		Log.w(origin.getClass().getName(), "" + message);
+	}
+	
+	public static void err(Object origin, Object message) {
+		Log.e(origin.getClass().getName(), "" + message);
+	}
+	
 	public static int distanceBetweenPoints(Pair<Integer,Integer> p1, Pair<Integer,Integer> p2) {
 		return distanceBetweenPosition(p1.getFirst(), p1.getSecond(), p2.getFirst(), p2.getSecond());
 	}
