@@ -14,6 +14,12 @@
         android:layout_height="wrap_content" >
 
         <Button
+            android:id="@+id/camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appareil Photo" />
+
+        <Button
             android:id="@+id/buttonLoadPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

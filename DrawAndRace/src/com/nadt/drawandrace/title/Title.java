@@ -56,10 +56,7 @@ public class Title extends CustomActivity {
 				Intent myIntent = new Intent(Title.this, GameActivity.class);
 				startActivityForResult(myIntent, 0);
 			}
-		});
-		
-		Button imageCapture = (Button) findViewById( R.id.imageCapture );
-		
+		});		
 
 		gallery.setOnClickListener(new OnClickListener() {
 			@Override
@@ -68,57 +65,6 @@ public class Title extends CustomActivity {
 				startActivityForResult(myIntent, 0);
 			}
 		});
-
-		imageCapture.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				// Création de l'intent de type ACTION_IMAGE_CAPTURE
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				// Création d'un fichier de type image
-				File photo = new File(Constants.storage,  "course.jpg");
-				if( !photo.exists() ) {
-					//photo.mkdirs();
-					try {
-						photo.createNewFile();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				Tools.log(this, photo.getPath() );
-				// On fait le lien entre la photo prise et le fichier que l'on vient de créer
-				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-				// Lancement de l'intent
-				startActivityForResult(intent, 1);
-			}
-		});
-		
-		
-		//		create.setOnClickListener(new OnClickListener() {
-		//			@Override
-		//			public void onClick(View v) {	
-		//				Constants.mode = Constants.Mode.CREATE;
-		//				Intent myIntent = new Intent(Title.this, MusicSelection.class);
-		//				startActivityForResult(myIntent, 0);
-		//			}
-		//		});
-		//		
-		//		scores.setOnClickListener(new OnClickListener() {
-		//			@Override
-		//			public void onClick(View v) {	
-		//				Intent myIntent = new Intent(Title.this, ScoreActivity.class);
-		//				startActivityForResult(myIntent, 0);
-		//			}
-		//		});
-		//		
-		//		options.setOnClickListener(new OnClickListener() {
-		//			@Override
-		//			public void onClick(View v) {	
-		//				Intent myIntent = new Intent(Title.this, Parameters.class);
-		//				startActivityForResult(myIntent, 0);
-		//			}
-		//		});
 
 		exit.setOnClickListener(new OnClickListener() {
 			@Override

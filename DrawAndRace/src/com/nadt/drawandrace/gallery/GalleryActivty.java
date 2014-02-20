@@ -1,5 +1,9 @@
 package com.nadt.drawandrace.gallery;
 
+import java.io.File;
+import java.io.IOException;
+
+import com.nadt.drawandrace.utils.Constants;
 import com.nadt.drawandrace.utils.Tools;
 import com.nadt.drawnandrace.R;
 
@@ -22,11 +26,13 @@ public class GalleryActivty extends Activity {
 
 
 	private static int RESULT_LOAD_IMAGE = 1;
+	private static int RESULT_CAMERA_IMAGE = 2;
 	private int screenHeight;
 	private int screenWidth;
 	private int angle;
 	private float touchingX;
 	private boolean alreadyChange;
+	private File photo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +43,20 @@ public class GalleryActivty extends Activity {
 		// Récuperation de la taille du device
         screenHeight = getWindowManager().getDefaultDisplay().getHeight();
         screenWidth = getWindowManager().getDefaultDisplay().getWidth();
-
+        // Création d'un fichier de type image
+		photo = new File(Constants.storage,  "course.jpg");
+		Tools.log(this, Constants.storage);
+		if( !photo.exists() ) {
+			//photo.mkdirs();
+			try {
+				photo.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+		Button buttonCamera = (Button) findViewById(R.id.camera);
 		buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -49,6 +67,20 @@ public class GalleryActivty extends Activity {
 						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
 				startActivityForResult(i, RESULT_LOAD_IMAGE);
+			}
+		});
+		
+		buttonCamera.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+					
+					// Création de l'intent de type ACTION_IMAGE_CAPTURE
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					// On fait le lien entre la photo prise et le fichier que l'on vient de créer
+					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+					// Lancement de l'intent
+					startActivityForResult(intent, RESULT_CAMERA_IMAGE);
 			}
 		});
 		
@@ -107,6 +139,11 @@ public class GalleryActivty extends Activity {
 
 			ImageView imageView = (ImageView) findViewById(R.id.imgView);
 			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+		}
+		else if(requestCode == RESULT_CAMERA_IMAGE) {
+			Tools.log(this, "Photo obtenue.");
+			ImageView imageView = (ImageView) findViewById(R.id.imgView);
+			imageView.setImageURI(Uri.fromFile(photo));
 		}
 	}
 }
