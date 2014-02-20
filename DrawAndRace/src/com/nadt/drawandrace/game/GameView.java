@@ -3,10 +3,14 @@ package com.nadt.drawandrace.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nadt.drawandrace.game.active.Sprite;
 import com.nadt.drawandrace.game.engine.GameEngine;
 
+import android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -36,9 +40,14 @@ public class GameView extends SurfaceView {
 	protected void onDraw(Canvas canvas) {
 		if(canvas == null) {
 			return;
-		}
+		} 
 		canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-		
+		Paint paint = new Paint();
+		if(gameEngine != null) {
+			if(gameEngine.getPlaySprite() != null) {
+				gameEngine.getPlaySprite().draw(canvas, paint);
+			}
+		}
 	}
 
 	public void setGameEngine(GameEngine gameEngine) {

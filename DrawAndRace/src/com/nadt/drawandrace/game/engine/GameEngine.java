@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import com.nadt.drawandrace.game.GameActivity;
+import com.nadt.drawandrace.game.active.Sprite;
+import com.nadt.drawandrace.utils.Tools;
+
 import android.graphics.Color;
 
 public class GameEngine {
@@ -18,9 +22,15 @@ public class GameEngine {
 	private int gameWidth;
 	private int gameHeight;
 	private boolean reallyEnd;
+	// Active sprite
+	private Sprite playerShape;
 	
 	public GameEngine() {
-
+		playerShape = new Sprite(GameActivity.virtualXToScreenX(GameActivity.virtualSize/2), 
+										   GameActivity.virtualYToScreenY(GameActivity.virtualSize/2), 
+										   GameActivity.virtualXToScreenX(50), 
+										   GameActivity.virtualXToScreenX(75), 
+										   0);
 	}
 	
 	public void engineLoop() {
@@ -28,7 +38,7 @@ public class GameEngine {
 	}
 	
 	private void playLoop() {
-
+		playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getX(), playerShape.getY()));
 	}
 
 	public void setUserTouchPosition(float x, float y) {
@@ -42,5 +52,9 @@ public class GameEngine {
 	
 	public boolean isEnded() {
 		return reallyEnd;
+	}
+	
+	public Sprite getPlaySprite() {
+		return playerShape;
 	}
 }

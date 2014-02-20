@@ -19,4 +19,12 @@ public class Tools {
 	public static int square(int n) {
 		return n * n;
 	}
+	
+	public static float getAngle(float x1, float y1, float x2, float y2) {
+		float deltaY = y2 - y1;
+		float deltaX = x2 - x1;
+
+		float angleInDegrees = ((float) (Math.atan2(deltaY , deltaX) * 180 / 3.14)) - 90;
+		return angleInDegrees;
+	}
 }
