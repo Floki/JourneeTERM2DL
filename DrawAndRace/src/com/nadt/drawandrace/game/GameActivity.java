@@ -7,6 +7,7 @@ import com.nadt.drawandrace.game.engine.GameEngine;
 import com.nadt.drawnandrace.R;
 
 import android.annotation.SuppressLint;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -82,6 +83,7 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 				return true;
 			}
 		});
+		gameEngine.setAccelerometerSensor((SensorManager)getSystemService(SENSOR_SERVICE));
 		gameThread = new GameThread(gameView, gameEngine);
 	}
 
