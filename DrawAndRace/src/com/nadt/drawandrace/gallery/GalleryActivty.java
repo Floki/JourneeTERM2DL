@@ -119,23 +119,23 @@ public class GalleryActivty extends CustomActivity {
 					Tools.log(this, "Touch position : " + touchingX);
 					return true;
 				case MotionEvent.ACTION_MOVE:
-					if(alreadyChange) {
-						return true;
-					}
-					if(touchingX < event.getX() - 30) {
-						angle -= 90;
-						alreadyChange = true;
-					}
-					else if(touchingX > event.getX() + 30){
-						angle += 90;
-						alreadyChange = true;
-					}
-					Tools.log(this, "Rotate : " + angle);
-					ImageView imageView = (ImageView) findViewById(R.id.imgView);
-					Matrix matrix = new Matrix();
-					imageView.setScaleType(ScaleType.MATRIX);   //required
-					matrix.postRotate(angle, imageView.getDrawable().getBounds().width()/2, imageView.getDrawable().getBounds().height()/2);
-					imageView.setImageMatrix(matrix);
+//					if(alreadyChange) {
+//						return true;
+//					}
+//					if(touchingX < event.getX() - 30) {
+//						angle -= 90;
+//						alreadyChange = true;
+//					}
+//					else if(touchingX > event.getX() + 30){
+//						angle += 90;
+//						alreadyChange = true;
+//					}
+//					Tools.log(this, "Rotate : " + angle);
+//					ImageView imageView = (ImageView) findViewById(R.id.imgView);
+//					Matrix matrix = new Matrix();
+//					imageView.setScaleType(ScaleType.MATRIX);   //required
+//					matrix.postRotate(angle, imageView.getDrawable().getBounds().width()/2, imageView.getDrawable().getBounds().height()/2);
+//					imageView.setImageMatrix(matrix);
 				}
 				return true;
 			}
