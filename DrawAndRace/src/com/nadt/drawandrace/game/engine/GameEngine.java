@@ -58,6 +58,8 @@ public class GameEngine {
 	private final int FINISH = 3;
 	private int gameState;
 	private int touchTimer;
+	// Timer
+	private int timer;
 	
 	public GameEngine() {
 		track = new RaceTrack(GameActivity.virtualXToScreenX(300), 10, 10);
@@ -67,6 +69,7 @@ public class GameEngine {
 		boostSpeed = GameActivity.virtualXToScreenX(80);
 		gameState = PUT_START;
 		touchTimer = 0;
+		timer = 0;
 	}
 	
 	public void engineLoop() {
@@ -95,6 +98,7 @@ public class GameEngine {
 	}
 	
 	private void playLoop() {
+		timer ++;
 		if(playerShape == null) {
 			xPosition = (int) start.getInitialX() - GameActivity.virtualXToScreenX(GameActivity.virtualSize / 2);
 			yPosition = (int) start.getInitialY() - GameActivity.virtualYToScreenY(GameActivity.virtualSize / 2);
@@ -116,14 +120,13 @@ public class GameEngine {
 			float angle = playerShape.getAngle();
 			float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
 			float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
-			Tools.log(this, "Try to move to : ( " + (getXInRace() - nextX) + " , " + (getYInRace() - nextY) + ")" );
-//			if(!track.collisionOn((int)(getXInRace() - nextX),(int)(getYInRace() - nextY))) {
-//				move((int)-nextX, (int)-nextY);
-//			}
-//			else {
-//				speed = 0;
-//			}
-			move((int)-nextX, (int)-nextY);
+			Tools.log(this, "Try to move to : ( " + (getCarXPosition() - nextX) + " , " + (getCarYPosition() - nextY) + ")" );
+			if(!track.collisionOn((int)(getCarXPosition() - nextX),(int)(getCarYPosition() - nextY))) {
+				move((int)-nextX, (int)-nextY);
+			}
+			else {
+				speed = 0;
+			}
 		}
 		else if(speed > 0) {
 			speed--;
@@ -228,7 +231,7 @@ public class GameEngine {
 		return xPosition;
 	}
 	
-	public int getXInRace() {
+	public int getCarXPosition() {
 		return xPosition + GameActivity.virtualXToScreenX(GameActivity.virtualSize / 2);
 	}
 	
@@ -236,7 +239,7 @@ public class GameEngine {
 		return yPosition;
 	}
 	
-	public int getYInRace() {
+	public int getCarYPosition() {
 		return yPosition + GameActivity.virtualYToScreenY(GameActivity.virtualSize / 2);
 	}
 	
@@ -260,6 +263,10 @@ public class GameEngine {
 	}
 	
 	public int getSpeed() {
+		return this.speed;
+	}
+	
+	public int getTimer() {
 		return this.speed;
 	}
 }

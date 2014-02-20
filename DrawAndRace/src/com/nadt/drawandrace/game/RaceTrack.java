@@ -16,18 +16,6 @@ public class RaceTrack {
 	private int nbH;
 	private int nbV;
 
-	private boolean[][] map = {
-			{false, false, false, false, false, false, false, false, false, false},
-			{false, true,  true,  true,  true,  true,  true,  true,  true,  false},
-			{false, true,  false, false, false, false, false, false, true,  false},
-			{false, true,  false, false, false, false, false, true,  true,  false},
-			{false, true,  true,  false, true,  true,  true,  true,  false, false},
-			{false, false, true,  false, true,  false, false, false, false, false},
-			{false, true,  true,  false, true,  true,  true,  true,  true,  false},
-			{false, true,  false, false, false, false, false, true,  true,  false},
-			{false, true,  true,  true,  true,  true,  true,  true,  false, false},
-			{false, false, false, false, false, false, false, false, false, false}
-	};
 	private Bitmap blackAndWhiteBitmap;
 	
 	public RaceTrack(int tileSize, int nbHorizontal, int nbVertical) {
@@ -44,19 +32,22 @@ public class RaceTrack {
 //		Tools.log(this, "Test if there is obstacle in : [ " + xInAray + " , " + yInAray + "]");
 //		return !map[yInAray][xInAray];
 		
-		float litleWidth = blackAndWhiteBitmap.getWidth() / Constants.TRACK_SIZE_FACTOR;
-		float litleHeight = blackAndWhiteBitmap.getHeight() / Constants.TRACK_SIZE_FACTOR;
-		
-		if( blackAndWhiteBitmap.getPixel(x / Constants.TRACK_SIZE_FACTOR, y / Constants.TRACK_SIZE_FACTOR ) == Color.BLACK ) {
+//		float litleWidth = blackAndWhiteBitmap.getWidth() / Constants.TRACK_SIZE_FACTOR;
+//		float litleHeight = blackAndWhiteBitmap.getHeight() / Constants.TRACK_SIZE_FACTOR;
+//		
+//		if( blackAndWhiteBitmap.getPixel(x / Constants.TRACK_SIZE_FACTOR, y / Constants.TRACK_SIZE_FACTOR ) == Color.BLACK ) {
+//			Tools.err(this, "*** BOOM ***");
+//		}
+//		
+//		return false;
+		if( blackAndWhiteBitmap.getPixel(x/6, y/6) == Color.BLACK) {
 			Tools.err(this, "*** BOOM ***");
+			return true;
 		}
-		
 		return false;
 	}
 
-	public boolean wallIn(int x, int y) {
-		return !map[y][x];
-	}
+
 
 	public int getWallSize() {
 		return wallSize;
