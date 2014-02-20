@@ -29,10 +29,11 @@ public class RaceTrack {
 	}
 	
 	public boolean collisionOn(int x, int y) {
-		int xInAray = Math.min(Math.max(x / wallSize, 0), nbH) ;
-		int yInAray = Math.min(Math.max(y / wallSize, 0), nbV) ;
-		Tools.log(this, "Test if there is obstacle in : [ " + xInAray + " , " + yInAray + "]");
-		return !map[yInAray][xInAray];
+//		int xInAray = Math.min(Math.max(x / wallSize, 0), nbH) ;
+//		int yInAray = Math.min(Math.max(y / wallSize, 0), nbV) ;
+//		Tools.log(this, "Test if there is obstacle in : [ " + xInAray + " , " + yInAray + "]");
+//		return !map[yInAray][xInAray];
+		return false;
 	}
 
 	public boolean wallIn(int x, int y) {
