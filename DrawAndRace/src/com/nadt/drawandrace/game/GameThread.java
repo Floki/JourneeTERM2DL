@@ -1,6 +1,7 @@
 package com.nadt.drawandrace.game;
 
 import com.nadt.drawandrace.game.engine.GameEngine;
+import com.nadt.drawandrace.utils.Constants;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -16,18 +17,14 @@ public class GameThread extends Thread {
 	public GameThread(GameView view, GameEngine gameEngine) {
 		this.view = view;
 		this.gameEngine = gameEngine;
-		this.soundEngine = gameEngine.getSoundEngine();
-		this.gameActivity = activity;
 	}
 
 	public void setRunning(boolean run) {
 		running = run;
-		soundEngine.playIfNeedToPlay(run);
 		if(run) {
 			start();
 		}
 		else {
-			soundEngine.onDestroy();
 			interrupt();
 		}
 	}
@@ -41,9 +38,6 @@ public class GameThread extends Thread {
 		while (running) {
 			if(gameEngine.isEnded()) {
 				running = false;
-				Pattern p = gameEngine.getPattern();
-				saveScore( p.getMusicFile().getTitle(), p.getPatternName(), Game.level.getLevelName(), gameEngine.getScore() );
-				gameActivity.backToTitle("Fin de partie" , "Score : " + gameEngine.getScore());
 			}
 			Canvas c = null;
 			gameEngine.engineLoop();
@@ -70,11 +64,6 @@ public class GameThread extends Thread {
 					sleep(10);
 			} catch (Exception e) {}
 		}
-	}
-
-	private void saveScore(String musicTitle, String patternName, String level, int score) {
-		ScoreDbHelper scoreDbHelper = new ScoreDbHelper(gameActivity);
-		scoreDbHelper.insertScore(musicTitle, patternName, level, score);
 	}
 } 
 
