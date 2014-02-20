@@ -35,7 +35,8 @@ public final class ImageManipulation {
 	 * Returns a black and white (only black and white, no grey) bitmap of the
 	 * given bitmap
 	 * 
-	 * // TODO : optimize ? // TODO : log %
+	 * // TODO : optimize ?
+	 * Threading useful ?
 	 * 
 	 * @param bmpSrc
 	 * @return
@@ -124,6 +125,8 @@ public final class ImageManipulation {
 	 * Encode the given blackAndWhite Bitmap into the given map
 	 * If a pixel of the blackAndWhite bitmap is black, the corresponding
 	 * pixel of the map will have transparency FE instead of FF
+	 * 
+	 * Can reduce memory footprint but will be longer
 	 * 
 	 * @param map
 	 * @param blackAndWhite
