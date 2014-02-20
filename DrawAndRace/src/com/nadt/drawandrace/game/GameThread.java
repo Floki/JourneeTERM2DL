@@ -40,7 +40,7 @@ public class GameThread extends Thread {
 		while (running) {
 			if(gameEngine.isEnded()) {
 				running = false;
-				gameActivity.backToTitle("Fin de partie" , "Votre temps : " + (gameEngine.getTimer()/Constants.FPS) + "sec");
+				gameActivity.backToTitle("Fin de partie" , "Votre temps : " + (gameEngine.getTimer()/1000) + "sec");
 			}
 			Canvas c = null;
 			gameEngine.engineLoop();
