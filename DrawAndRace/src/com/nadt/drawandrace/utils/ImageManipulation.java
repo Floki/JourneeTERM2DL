@@ -50,8 +50,8 @@ public final class ImageManipulation {
 			@Override
 			public void run() {
 				int color;
-				for (int i = width; i-- > 0;) {
-					for (int j = height; j-- > 0;) {
+				for (int i = width; i --> 0;) {
+					for (int j = height; j --> 0;) {
 						color = bmpSrc.getPixel(i, j) > threshold ? Color.WHITE
 								: Color.BLACK;
 						bmpBlackAndWhite.setPixel(i, j, color);

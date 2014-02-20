@@ -1,8 +1,6 @@
 package com.nadt.drawandrace.title;
 
 import java.io.File;
-import java.io.IOException;
-
 import com.nadt.drawandrace.CustomActivity;
 import com.nadt.drawandrace.gallery.GalleryActivty;
 import com.nadt.drawandrace.game.GameActivity;
@@ -13,20 +11,13 @@ import com.nadt.drawnandrace.R;
 
 
 import android.content.Intent;
-import android.database.Cursor;
-
-import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 
 public class Title extends CustomActivity {

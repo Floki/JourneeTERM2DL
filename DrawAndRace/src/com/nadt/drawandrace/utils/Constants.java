@@ -1,7 +1,5 @@
 package com.nadt.drawandrace.utils;
 
-import java.util.Collection;
-
 public class Constants {
 
 	/*
