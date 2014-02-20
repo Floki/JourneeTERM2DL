@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.nadt.drawandrace.CustomActivity;
 import com.nadt.drawandrace.game.GameActivity;
 import com.nadt.drawandrace.utils.Constants;
 import com.nadt.drawandrace.utils.ImageManipulation;
@@ -17,6 +18,7 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -24,7 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-public class GalleryActivty extends Activity {
+public class GalleryActivty extends CustomActivity {
 
 
 	private static int RESULT_LOAD_IMAGE = 1;
@@ -72,6 +74,7 @@ public class GalleryActivty extends Activity {
 				String[] trackImg = {photo.getPath()};
 				intent.putExtra("SELECTED_TRACK_IMAGE", trackImg);
 				startActivityForResult(intent, 0);
+				finish();
 			}
 		});
 		
@@ -99,6 +102,7 @@ public class GalleryActivty extends Activity {
 					intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
 					// Lancement de l'intent
 					startActivityForResult(intent, RESULT_CAMERA_IMAGE);
+					
 			}
 		});
 		
@@ -178,5 +182,16 @@ public class GalleryActivty extends Activity {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	onDestroy();
+	        backToTitle();
+	        return true;
+	    }
+
+	    return super.onKeyDown(keyCode, event);
 	}
 }

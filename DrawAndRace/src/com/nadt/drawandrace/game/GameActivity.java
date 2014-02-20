@@ -116,6 +116,7 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	onDestroy();
 	        backToTitle();
 	        return true;
 	    }
