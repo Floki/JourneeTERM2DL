@@ -1,12 +1,15 @@
 package com.nadt.drawandrace.game;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 
 import com.nadt.drawandrace.CustomActivity;
 import com.nadt.drawandrace.game.engine.GameEngine;
+import com.nadt.drawandrace.utils.Tools;
 import com.nadt.drawnandrace.R;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -40,6 +43,15 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		String[] xtras = getIntent().getExtras().getStringArray("SELECTED_TRACK_IMAGE");
+		if( xtras == null ) {
+			//here we fail :o
+			Tools.log(this, "No Xtras");
+		}
+		
+		String imagePath = xtras[0];
+		File imageFile = new File( imagePath );
 
 		// Full Screen
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -54,6 +66,8 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 		setContentView(R.layout.game_activity);
 		gameView = (GameView)findViewById(R.id.gameView);
 		gameView.getHolder().addCallback(this);
+		gameView.setImageTrackFile( imageFile );
+		//gameView.setBackgroundDrawable( Drawable.createFromPath( imagePath ) );
 		
 		// On crée le moteur du jeu
 		gameEngine = new GameEngine();

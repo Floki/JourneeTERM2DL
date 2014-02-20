@@ -1,5 +1,6 @@
 package com.nadt.drawandrace.game;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class GameView extends SurfaceView {
 	private GameEngine gameEngine;
 	private boolean canDraw;
 	private long initTime;
+	private File imageFile;
 	
 	public GameView(Context context) {
 		super(context);
@@ -50,6 +52,9 @@ public class GameView extends SurfaceView {
 		else {
 			canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 			Paint paint = new Paint();
+			
+			canvas.drawBitmap( BitmapFactory.decodeFile( imageFile.getPath() ), null, new Rect(0, 0, GameActivity.screenWidth, GameActivity.screenHeight), paint);
+			
 			if(gameEngine != null) {
 				if(gameEngine.getPlaySprite() != null) {
 					gameEngine.getPlaySprite().draw(canvas, paint);
@@ -79,4 +84,7 @@ public class GameView extends SurfaceView {
 	public void setGameEngine(GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
   	}
+	public void setImageTrackFile(File imageFile) {
+		this.imageFile= imageFile; 
+	}
 }
