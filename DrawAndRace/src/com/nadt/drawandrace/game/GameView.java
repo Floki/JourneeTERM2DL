@@ -66,9 +66,9 @@ public class GameView extends SurfaceView {
 			float litleHeight = bitmapTrack.getHeight() / Constants.TRACK_SIZE_FACTOR;
 			
 			canvas.drawBitmap( bitmapTrack,
-								new Rect( (int)(xPosition - litleWidth/2), (int)(yPosition - litleHeight/2),
-										  (int)(xPosition + litleWidth/2), (int)(yPosition + litleHeight/2) ),
-								new Rect(0, 0, GameActivity.screenWidth, widthRatio),
+								new Rect( (int)(xPosition), (int)(yPosition),
+										  (int)(xPosition + GameActivity.screenWidth), (int)(yPosition + GameActivity.screenHeight) ),
+								new Rect(0, 0, GameActivity.screenWidth, GameActivity.screenHeight),
 								paint);
 			
 

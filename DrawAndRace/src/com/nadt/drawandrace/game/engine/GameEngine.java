@@ -117,12 +117,13 @@ public class GameEngine {
 			float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
 			float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
 			Tools.log(this, "Try to move to : ( " + (getXInRace() - nextX) + " , " + (getYInRace() - nextY) + ")" );
-			if(!track.collisionOn((int)(getXInRace() - nextX),(int)(getYInRace() - nextY))) {
-				move((int)-nextX, (int)-nextY);
-			}
-			else {
-				speed = 0;
-			}
+//			if(!track.collisionOn((int)(getXInRace() - nextX),(int)(getYInRace() - nextY))) {
+//				move((int)-nextX, (int)-nextY);
+//			}
+//			else {
+//				speed = 0;
+//			}
+			move((int)-nextX, (int)-nextY);
 		}
 		else if(speed > 0) {
 			speed--;
