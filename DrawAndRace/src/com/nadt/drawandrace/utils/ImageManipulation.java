@@ -19,9 +19,16 @@ import android.graphics.Paint;
 public final class ImageManipulation {
 
 	public static final String TMP_FILE_NAME = "/tmp.png";
+	
 	public static final String BLACK_WHITE_FILE_PATH = Constants.storage
 			+ TMP_FILE_NAME;
+	
+	/** Empyrical value */
 	public static int threshold = 0xff666666;
+	
+	/** Values should be tested */
+	public static final int MAX_IMG_WIDTH = 500;
+	public static final int MAX_IMG_HEIGHT = 1000;
 
 	/**
 	 * Private constructor to prevent class instanciation
@@ -44,7 +51,7 @@ public final class ImageManipulation {
 		height = bmpSrc.getHeight();
 		width = bmpSrc.getWidth();
 
-		final Bitmap bmpBlackAndWhite = toGrayscale(bmpSrc);
+		final Bitmap bmpGrayScaled = toGrayscale(bmpSrc);
 
 		Thread thread = new Thread() {
 			@Override
@@ -54,7 +61,7 @@ public final class ImageManipulation {
 					for (int j = height; j --> 0;) {
 						color = bmpSrc.getPixel(i, j) > threshold ? Color.WHITE
 								: Color.BLACK;
-						bmpBlackAndWhite.setPixel(i, j, color);
+						bmpGrayScaled.setPixel(i, j, color);
 					}
 				}
 
@@ -69,7 +76,42 @@ public final class ImageManipulation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return bmpBlackAndWhite;
+		return bmpGrayScaled;
+	}
+
+	/**
+	 * If given bmpSrc's height is > maxHeight OR its width is > maxWidth, 
+	 * returns a scaled down bitmap with height = maxHeight, width = maxWidth.
+	 * 
+	 * NOT TESTED
+	 * 
+	 * If notthing > max, returns given bitmap
+	 * @param bmpSrc
+	 * @param maxWidth
+	 * @param maxHeight
+	 * @return
+	 */
+	private static Bitmap scaleDown(final Bitmap bmpSrc, int maxWidth, int maxHeight) {
+		int height = bmpSrc.getHeight();
+		int width = bmpSrc.getWidth(); 
+		Bitmap scaled;
+		
+		boolean scaledDown = false;
+		if(bmpSrc.getHeight() > maxHeight) {
+			height = maxHeight;
+			scaledDown = true;
+		}
+		if(bmpSrc.getWidth() > maxWidth) {
+			width = maxWidth;
+			scaledDown = true;
+		}
+		
+		if(scaledDown) {
+			scaled = Bitmap.createScaledBitmap(bmpSrc, height, width, true);
+		} else {
+			scaled = bmpSrc;
+		}
+		return scaled;
 	}
 
 	/**
@@ -78,7 +120,7 @@ public final class ImageManipulation {
 	 * @param bmpSrc
 	 * @return
 	 */
-	public static Bitmap toGrayscale(Bitmap bmpSrc) {
+	private static Bitmap toGrayscale(Bitmap bmpSrc) {
 		int width, height;
 		height = bmpSrc.getHeight();
 		width = bmpSrc.getWidth();
@@ -143,4 +185,7 @@ public final class ImageManipulation {
 		}
 		return new File(filePath);
 	}
+	
+	
+	
 }
