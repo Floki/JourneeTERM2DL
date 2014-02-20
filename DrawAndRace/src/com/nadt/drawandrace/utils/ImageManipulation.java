@@ -8,7 +8,15 @@ import android.graphics.Paint;
 
 public class ImageManipulation {
 	
-	
+	/**
+	 * Returns a black and white (only black and white, no grey) bitmap of
+	 * the given bitmap
+	 * 
+	 * TODO : for now does a grayscale, change to do a real B&W 
+	 * 
+	 * @param bmpSrc
+	 * @return
+	 */
 	public static Bitmap toBlackAndWhite(Bitmap bmpSrc) {
 		int width, height;
 	    height = bmpSrc.getHeight();
@@ -25,7 +33,12 @@ public class ImageManipulation {
 	    return bmpBlackAndWhite;
 	}
 	
-	
+	/**
+	 * Returns a grayscale (monochrome) bitmap of the given bitmap
+	 * 
+	 * @param bmpSrc
+	 * @return
+	 */
 	public static Bitmap toGrayscale(Bitmap bmpSrc) {        
 	    int width, height;
 	    height = bmpSrc.getHeight();
