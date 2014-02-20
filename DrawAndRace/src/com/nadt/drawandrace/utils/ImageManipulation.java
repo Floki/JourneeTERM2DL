@@ -76,16 +76,18 @@ public final class ImageManipulation {
 
 	/**
 	 * If given bmpSrc's height is > maxHeight OR its width is > maxWidth, 
-	 * returns a scaled down bitmap with height = maxHeight, width = maxWidth.
+	 * returns a scaled down bitmap with height = maxHeight (if it was > maxHeight)
+	 * and width = maxWidth (if it was > maxWidth)
 	 * 
 	 * NOT TESTED
 	 * 
-	 * If notthing > max, returns given bitmap
+	 * If nothing > max, returns given bitmap
 	 * @param bmpSrc
 	 * @param maxWidth
 	 * @param maxHeight
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private static Bitmap scaleDown(final Bitmap bmpSrc, int maxWidth, int maxHeight) {
 		int height = bmpSrc.getHeight();
 		int width = bmpSrc.getWidth(); 
@@ -180,7 +182,4 @@ public final class ImageManipulation {
 		}
 		return new File(filePath);
 	}
-	
-	
-	
 }

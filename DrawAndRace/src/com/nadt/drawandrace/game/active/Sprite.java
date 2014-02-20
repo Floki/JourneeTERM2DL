@@ -19,16 +19,18 @@ public class Sprite {
 
 	private float pX;
 	private float pY;
+	private float initialX;
+	private float initialY;
 	private float pWidth;
 	private float pHeight;
 	private float pAngle;
-	private ArrayList<Pair<Path, Integer>> spriteComponents;
+	protected ArrayList<Pair<Path, Integer>> spriteComponents;
 	
 	public Sprite(float pX, float pY, float pAngle) {
-		this.pX = pX;
+		this.initialX = pX;
+		this.initialY = pY;
+		this.pX = pY;
 		this.pY = pY;
-		this.pWidth = pWidth;
-		this.pHeight = pHeight;
 		this.pAngle = pAngle;
 		this.spriteComponents = new ArrayList<Pair<Path, Integer>>();
 	}
@@ -37,7 +39,7 @@ public class Sprite {
 		this.pX = pX;
 		this.pY = pY;
 	}
-	
+		
 	public void setSize(float pWidth, float pHeight) {
 		this.pHeight = pHeight;
 		this.pWidth = pWidth;
@@ -73,12 +75,20 @@ public class Sprite {
 	
 	public void draw(Canvas canvas, Paint paint) {
 		canvas.save();
-		canvas.rotate(pAngle, pX, pY);
-		for(Pair shape: spriteComponents) {
+		canvas.rotate(pAngle, initialX, initialY);
+		for(Pair<Path, Integer> shape: spriteComponents) {
 			paint.setColor((Integer)shape.getSecond());
 			canvas.drawPath((Path)shape.getFirst(), paint);
 		}		
 		canvas.restore();
+	}
+	
+	public float getInitialX() {
+		return initialX;
+	}
+	
+	public float getInitialY() {
+		return initialY;
 	}
 
 }

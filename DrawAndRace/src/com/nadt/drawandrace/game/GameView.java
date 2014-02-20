@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nadt.drawandrace.game.active.Sprite;
+import com.nadt.drawandrace.game.active.TrackFinish;
+import com.nadt.drawandrace.game.active.TrackStart;
 import com.nadt.drawandrace.game.engine.GameEngine;
 import com.nadt.drawandrace.utils.Constants;
 
@@ -64,30 +66,31 @@ public class GameView extends SurfaceView {
 			float litleHeight = bitmapTrack.getHeight() / Constants.TRACK_SIZE_FACTOR;
 			
 			canvas.drawBitmap( bitmapTrack,
-								new Rect( (int)(xPosition - litleWidth/2), (int)(yPosition - litleHeight/2),
-										  (int)(xPosition + litleWidth/2), (int)(yPosition + litleHeight/2) ),
-								new Rect(0, 0, GameActivity.screenWidth, widthRatio),
+								new Rect( (int)(xPosition/6), 
+										  (int)(yPosition/6),
+										  (int)(xPosition/6 + GameActivity.screenWidth/6), 
+										  (int)(yPosition/6 + GameActivity.screenHeight/6) ),
+								new Rect(0, 0, GameActivity.screenWidth, GameActivity.screenHeight),
 								paint);
+			
+
+			RaceTrack map = gameEngine.getMap();
+			paint.setColor(Color.GRAY);
+
+			Sprite start = gameEngine.getStartSprite();
+			Sprite finish = gameEngine.getFinishSprite();
+			if(start != null) {
+				start.draw(canvas, paint);
+			}
+			if(finish != null) {
+				finish.draw(canvas, paint);
+			}
 			
 			if(gameEngine != null) {
 				if(gameEngine.getPlaySprite() != null) {
 					gameEngine.getPlaySprite().draw(canvas, paint);
 				}
 			}
-			RaceTrack map = gameEngine.getMap();
-			paint.setColor(Color.GRAY);
-			
-//			for(int y = 0; y < 10; y++) {
-//				for(int x = 0; x < 10; x++) {
-//					if(map.wallIn(x, y)) {
-//						Rect wall = new Rect(x * map.getWallSize() - xPosition,
-//											 y * map.getWallSize() - yPosition,
-//											 x * map.getWallSize() + map.getWallSize() - xPosition,
-//											 y * map.getWallSize() + map.getWallSize() - yPosition);
-//						canvas.drawRect(wall, paint);
-//					}
-//				}
-//			}
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(GameActivity.virtualXToScreenX(50));
 			canvas.drawText(""+gameEngine.getSpeed() + " km/h", GameActivity.virtualXToScreenX(50), GameActivity.virtualYToScreenY(50), paint);

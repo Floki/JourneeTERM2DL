@@ -1,10 +1,12 @@
 package com.nadt.drawandrace.game;
 
 import android.graphics.Bitmap;
+
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.nadt.drawandrace.utils.Constants;
+
 import com.nadt.drawandrace.utils.Tools;
 
 public class RaceTrack {
@@ -13,7 +15,7 @@ public class RaceTrack {
 	// Taille tableau
 	private int nbH;
 	private int nbV;
-	
+
 	private boolean[][] map = {
 			{false, false, false, false, false, false, false, false, false, false},
 			{false, true,  true,  true,  true,  true,  true,  true,  true,  false},
