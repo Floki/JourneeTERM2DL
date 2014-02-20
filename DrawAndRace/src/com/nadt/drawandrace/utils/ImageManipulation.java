@@ -2,6 +2,7 @@ package com.nadt.drawandrace.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -28,10 +29,10 @@ public final class ImageManipulation {
 	    width = bmpSrc.getWidth();
 	    
 	    Bitmap bmpBlackAndWhite = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-	    int color = 0;
-	    for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
-				color = bmpSrc.getPixel(i, j) > threshold ? 0 : 255;
+	    int color;
+	    for (int i = width; i --> 0 ;) {
+			for (int j = height; j --> 0 ;) {
+				color = bmpSrc.getPixel(i, j) > threshold ? Color.BLACK : Color.WHITE;
 				bmpBlackAndWhite.setPixel(i, j, color);
 			}
 		}
