@@ -14,6 +14,10 @@ import com.nadt.drawandrace.game.active.Sprite;
 import com.nadt.drawandrace.utils.Tools;
 
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
 public class GameEngine {
 	
@@ -33,14 +37,26 @@ public class GameEngine {
 	private RaceTrack track;
 	// Active sprite
 	private CarActive playerShape;
+	// Capteur
+	private SensorManager sensorManager;
+	// Boost needed
+	private boolean boost;
+	// Speed of the car
+	private int speed;
+	private int maxSpeed;
+	private int boostSpeed;
 	
 	public GameEngine() {
 		playerShape = new CarActive(GameActivity.virtualXToScreenX(GameActivity.virtualSize/2), 
-										   GameActivity.virtualYToScreenY(GameActivity.virtualSize/2), 
+										   GameActivity.virtualYToScreenY(GameActivity.virtualSize/2),
+										   0,
 										   GameActivity.virtualXToScreenX(50), 
-										   GameActivity.virtualXToScreenX(75), 
-										   0);
+										   GameActivity.virtualXToScreenX(75));
 		track = new RaceTrack(GameActivity.virtualXToScreenX(300), 10, 10);
+		boost = false;
+		speed = 0;
+		maxSpeed = GameActivity.virtualXToScreenX(50);
+		boostSpeed = GameActivity.virtualXToScreenX(80);
 	}
 	
 	public void engineLoop() {
@@ -49,15 +65,31 @@ public class GameEngine {
 	
 	private void playLoop() {
 		if(userIsTouching) {
+			if(speed < maxSpeed) {
+				speed++;
+			}
+			else if(speed > maxSpeed) {
+				speed--;
+			}
 			playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getX(), playerShape.getY()));
 			float angle = playerShape.getAngle();
-			float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * 10;
-			float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * 10;
+			float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
+			float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
 			Tools.log(this, "Try to move to : ( " + (getXInRace() - nextX) + " , " + (getYInRace() - nextY) + ")" );
 			if(!track.collisionOn((int)(getXInRace() - nextX),(int)(getYInRace() - nextY))) {
 				xPosition -= nextX;
 				yPosition -= nextY;
 			}
+			else {
+				speed = 0;
+			}
+		}
+		else if(speed > 0) {
+			speed--;
+		}
+		if(boost) {
+			boost = false;
+			speed = boostSpeed;
 		}
 	}
 
@@ -96,5 +128,28 @@ public class GameEngine {
 	
 	public int getYInRace() {
 		return yPosition + GameActivity.virtualYToScreenY(GameActivity.virtualSize / 2);
+	}
+	
+	public void setAccelerometerSensor(SensorManager sensorManager) {
+		this.sensorManager = sensorManager;
+		this.sensorManager.registerListener(new SensorEventListener() {
+			
+			@Override
+			public void onSensorChanged(SensorEvent event) {
+				if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
+					int accelX = (int) event.values[0];
+					int accelY = (int) event.values[1];
+					int accelZ = (int) event.values[2];
+					boost = Math.abs(accelX) > 10 || Math.abs(accelY) > 10 || Math.abs(accelZ) > 10;
+				}
+			}
+			
+			@Override
+			public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+		}, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	}
+	
+	public int getSpeed() {
+		return this.speed;
 	}
 }
