@@ -109,6 +109,10 @@ public class GameEngine {
 					   GameActivity.virtualXToScreenX(50), 
 					   GameActivity.virtualXToScreenX(75));
 		}
+		if(getCarXPosition() > finish.getInitialX() && getCarXPosition() < finish.getInitialX() + finish.getWidth()
+		&& getCarYPosition() > finish.getInitialY() && getCarYPosition() < finish.getInitialY() + finish.getWidth()) {
+			gameState = FINISH;
+		}
 		if(userIsTouching) {
 			if(speed < maxSpeed) {
 				speed++;
@@ -161,11 +165,12 @@ public class GameEngine {
 	}
 	
 	private void putStart() {
-		if(userIsTouching && touchTimer < 100 && start == null) {
+		if(userIsTouching && touchTimer < 50 && start == null) {
 			scroll();
 		}
 		else if(touchTimer > 10 && start == null) {
 			start = new TrackStart(xPosition + userTouchX, yPosition + userTouchY, 0);
+			move(0,0);
 		}
 		else if(start != null) {
 			if(!userIsTouching) {
@@ -177,11 +182,12 @@ public class GameEngine {
 
 
 	private void putFinish() {
-		if(userIsTouching && touchTimer < 100 && finish == null) {
+		if(userIsTouching && touchTimer < 50 && finish == null) {
 			scroll();
 		}
 		else if(touchTimer > 10 && finish == null) {
 			finish = new TrackFinish(xPosition + userTouchX, yPosition + userTouchY, 0);
+			move(0,0);
 		}
 		else if(finish != null) {
 			if(!userIsTouching) {
@@ -191,7 +197,7 @@ public class GameEngine {
 	}
 	
 	private void finish() {
-		
+		reallyEnd = true;
 	}
 
 	public void setUserTouchPosition(float x, float y) {
