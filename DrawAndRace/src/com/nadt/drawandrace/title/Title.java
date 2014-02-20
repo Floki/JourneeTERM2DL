@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class Title extends CustomActivity {
@@ -37,17 +38,8 @@ public class Title extends CustomActivity {
 		Tools.log(this, Constants.storage);
 
 		setContentView(R.layout.title_activity);
-		Button start = (Button) findViewById(R.id.playButton);
-		Button gallery = (Button) findViewById(R.id.galleryButton);
-		Button exit = (Button) findViewById(R.id.exitButton);
-
-		start.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {	
-				Intent myIntent = new Intent(Title.this, GameActivity.class);
-				startActivityForResult(myIntent, 0);
-			}
-		});		
+		ImageView gallery = (ImageView) findViewById(R.id.btnPlay);
+		ImageView exit = (ImageView) findViewById(R.id.btnExit);		
 
 		gallery.setOnClickListener(new OnClickListener() {
 			@Override
