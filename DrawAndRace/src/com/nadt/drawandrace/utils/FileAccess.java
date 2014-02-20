@@ -132,7 +132,9 @@ public class FileAccess {
 	}
 	
 	public static void createPathIfNonExists(String filePath) {
-		File patternFolder = new File(filePath.substring(0, filePath.lastIndexOf("/")));
+		if(filePath.substring(filePath.length() - 1).equals("/"))
+			filePath = filePath.substring(0, filePath.lastIndexOf("/")); //remove last slash if there is one
+		File patternFolder = new File( filePath );
     	if(!patternFolder.exists()) {
     		patternFolder.mkdirs();
     	}
