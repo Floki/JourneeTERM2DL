@@ -21,7 +21,7 @@ public final class ImageManipulation {
 	public static final String TMP_FILE_NAME = "/tmp.png";
 	public static final String BLACK_WHITE_FILE_PATH = Constants.storage
 			+ TMP_FILE_NAME;
-	public static int threshold = 0xff666666;
+	public static int threshold = 0xff555555;
 
 	/**
 	 * Private constructor to prevent class instanciation
