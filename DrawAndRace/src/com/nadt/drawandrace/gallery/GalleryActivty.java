@@ -1,9 +1,11 @@
 package com.nadt.drawandrace.gallery;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import com.nadt.drawandrace.utils.Constants;
+import com.nadt.drawandrace.utils.ImageManipulation;
 import com.nadt.drawandrace.utils.Tools;
 import com.nadt.drawnandrace.R;
 
@@ -138,12 +140,26 @@ public class GalleryActivty extends Activity {
 			cursor.close();
 
 			ImageView imageView = (ImageView) findViewById(R.id.imgView);
-			imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+			Tools.log(this, picturePath );
+			this.photo = new File(picturePath);
+			imageView.setImageURI(Uri.fromFile(photo));
 		}
 		else if(requestCode == RESULT_CAMERA_IMAGE) {
 			Tools.log(this, "Photo obtenue.");
 			ImageView imageView = (ImageView) findViewById(R.id.imgView);
 			imageView.setImageURI(Uri.fromFile(photo));
+		}
+		
+		if( photo.exists() ) {
+			try {
+				File f2 = ImageManipulation.toBlackAndWhite( photo );
+				if( f2.exists() ) {
+					( (ImageView) findViewById(R.id.imgView) ).setImageURI(Uri.fromFile(f2));
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
