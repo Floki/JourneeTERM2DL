@@ -30,6 +30,7 @@ public class GameView extends SurfaceView {
 	private long initTime;
 	private File imageFile;
 	private Bitmap bitmapTrack;
+	private int widthRatio;
 	
 	public GameView(Context context) {
 		super(context);
@@ -65,7 +66,7 @@ public class GameView extends SurfaceView {
 			canvas.drawBitmap( bitmapTrack,
 								new Rect( (int)(xPosition - litleWidth/2), (int)(yPosition - litleHeight/2),
 										  (int)(xPosition + litleWidth/2), (int)(yPosition + litleHeight/2) ),
-								new Rect(0, 0, GameActivity.screenWidth, GameActivity.screenHeight),
+								new Rect(0, 0, GameActivity.screenWidth, widthRatio),
 								paint);
 			
 			if(gameEngine != null) {
@@ -99,5 +100,6 @@ public class GameView extends SurfaceView {
 	public void setImageTrackFile(File imageFile) {
 		this.imageFile= imageFile;
 		this.bitmapTrack = BitmapFactory.decodeFile( imageFile.getPath() );
+		this.widthRatio = bitmapTrack.getHeight() * GameActivity.screenWidth / bitmapTrack.getWidth();
 	}
 }

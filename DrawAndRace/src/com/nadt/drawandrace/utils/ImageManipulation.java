@@ -17,11 +17,6 @@ import android.graphics.Paint;
  * 
  */
 public final class ImageManipulation {
-
-	public static final String TMP_FILE_NAME = "/tmp.png";
-	
-	public static final String BLACK_WHITE_FILE_PATH = Constants.storage
-			+ TMP_FILE_NAME;
 	
 	/** Empyrical value */
 	public static int threshold = 0xff666666;
@@ -163,7 +158,7 @@ public final class ImageManipulation {
 
 		Bitmap blackAndWhite = toBlackAndWhite(bitmap);
 
-		File f = saveBitmapToFile(BLACK_WHITE_FILE_PATH, blackAndWhite);
+		File f = saveBitmapToFile(Constants.getBlackWhiteFilePath(), blackAndWhite);
 
 		return f;
 	}
