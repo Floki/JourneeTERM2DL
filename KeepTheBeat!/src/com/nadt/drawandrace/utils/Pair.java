@@ -1,4 +1,4 @@
-package com.nadt.keepthebeatsurvival.utils;
+package com.nadt.drawandrace.utils;
 
 import java.io.Serializable;
 

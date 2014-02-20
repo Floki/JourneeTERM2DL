@@ -1,4 +1,4 @@
-package com.nadt.keepthebeatsurvival.title;
+package com.nadt.drawandrace.title;
 
 import java.io.File;
 
@@ -6,10 +6,9 @@ import java.io.File;
 import android.content.Intent;
 import android.database.Cursor;
 
-import com.nadt.keepthebeatsurvival.CustomActivity;
-import com.nadt.keepthebeatsurvival.R;
-import com.nadt.keepthebeatsurvival.utils.Constants;
-import com.nadt.keepthebeatsurvival.utils.Tools;
+import com.nadt.drawandrace.CustomActivity;
+import com.nadt.drawandrace.utils.Constants;
+import com.nadt.drawandrace.utils.Tools;
 
 import android.os.Bundle;
 import android.view.Menu;
