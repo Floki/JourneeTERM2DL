@@ -12,6 +12,7 @@ public class TrackFinish extends Sprite {
 		Path line = new Path();
 		int width = GameActivity.virtualXToScreenX(300);
 		int height = GameActivity.virtualXToScreenX(300);
+		setSize(width, height);
 		line.moveTo(pX - width / 2, pY - height / 2);
 		line.lineTo(pX + width / 2, pY - height / 2);
 		line.lineTo(pX + width / 2, pY + height / 2);
@@ -24,6 +25,7 @@ public class TrackFinish extends Sprite {
 		Path line = new Path();
 		int width = GameActivity.virtualXToScreenX(300);
 		int height = GameActivity.virtualXToScreenX(300);
+		setSize(width, height);
 		line.moveTo(pX - width / 2, pY - height / 2);
 		line.lineTo(pX + width / 2, pY - height / 2);
 		line.lineTo(pX + width / 2, pY + height / 2);

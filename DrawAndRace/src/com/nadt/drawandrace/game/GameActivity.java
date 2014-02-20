@@ -98,7 +98,7 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 			}
 		});
 		gameEngine.setAccelerometerSensor((SensorManager)getSystemService(SENSOR_SERVICE));
-		gameThread = new GameThread(gameView, gameEngine);
+		gameThread = new GameThread(this, gameView, gameEngine);
 	}
 
 	@Override

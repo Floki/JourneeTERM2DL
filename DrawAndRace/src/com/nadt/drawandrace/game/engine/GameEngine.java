@@ -109,8 +109,9 @@ public class GameEngine {
 					   GameActivity.virtualXToScreenX(50), 
 					   GameActivity.virtualXToScreenX(75));
 		}
-		if(getCarXPosition() > finish.getInitialX() && getCarXPosition() < finish.getInitialX() + finish.getWidth()
-		&& getCarYPosition() > finish.getInitialY() && getCarYPosition() < finish.getInitialY() + finish.getWidth()) {
+		Tools.log(this, getCarXPosition() + " " + getCarYPosition() + " " + finish.getInitialX() + " " + finish.getInitialY() + " " + finish.getInitialX() + finish.getWidth() + " " + finish.getInitialY() + finish.getHeight());
+		if(getCarXPosition() > finish.getInitialX() - finish.getWidth() / 2 && getCarXPosition() < finish.getInitialX() + finish.getWidth() / 2
+		&& getCarYPosition() > finish.getInitialY() - finish.getHeight() / 2&& getCarYPosition() < finish.getInitialY() + finish.getHeight() + 2) {
 			gameState = FINISH;
 		}
 		if(userIsTouching) {
@@ -120,20 +121,20 @@ public class GameEngine {
 			else if(speed > maxSpeed) {
 				speed--;
 			}
-			playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getInitialX(), playerShape.getInitialY()));
-			float angle = playerShape.getAngle();
-			float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
-			float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
-			Tools.log(this, "Try to move to : ( " + (getCarXPosition() - nextX) + " , " + (getCarYPosition() - nextY) + ")" );
-			if(!track.collisionOn((int)(getCarXPosition() - nextX),(int)(getCarYPosition() - nextY))) {
-				move((int)-nextX, (int)-nextY);
-			}
-			else {
-				speed = 0;
-			}
 		}
 		else if(speed > 0) {
 			speed--;
+		}
+		playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getInitialX(), playerShape.getInitialY()));
+		float angle = playerShape.getAngle();
+		float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
+		float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * GameActivity.virtualXToScreenX(speed);
+		Tools.log(this, "Try to move to : ( " + (getCarXPosition() - nextX) + " , " + (getCarYPosition() - nextY) + ")" );
+		if(!track.collisionOn((int)(getCarXPosition() - nextX),(int)(getCarYPosition() - nextY))) {
+			move((int)-nextX, (int)-nextY);
+		}
+		else {
+			speed = 0;
 		}
 		if(boost) {
 			boost = false;
@@ -273,6 +274,6 @@ public class GameEngine {
 	}
 	
 	public int getTimer() {
-		return this.speed;
+		return this.timer;
 	}
 }

@@ -13,10 +13,12 @@ public class GameThread extends Thread {
 	private GameView view;
 	private GameEngine gameEngine;
 	private boolean running = false;
+	private GameActivity gameActivity;
 
-	public GameThread(GameView view, GameEngine gameEngine) {
+	public GameThread(GameActivity activity, GameView view, GameEngine gameEngine) {
 		this.view = view;
 		this.gameEngine = gameEngine;
+		this.gameActivity = activity;
 	}
 
 	public void setRunning(boolean run) {
@@ -38,6 +40,7 @@ public class GameThread extends Thread {
 		while (running) {
 			if(gameEngine.isEnded()) {
 				running = false;
+				gameActivity.backToTitle("Fin de partie" , "Votre temps : " + (gameEngine.getTimer()/Constants.FPS) + "sec");
 			}
 			Canvas c = null;
 			gameEngine.engineLoop();
