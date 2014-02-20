@@ -14,22 +14,6 @@
        android:paddingTop="@dimen/activity_horizontal_margin" >
 
         <ImageView
-            android:id="@+id/btnPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/play" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:src="@drawable/tank" />
-
-        <ImageView
             android:id="@+id/btnExit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,6 +21,37 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp"
             android:src="@drawable/exit" />
+
+        <ImageView
+            android:id="@+id/btnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnExit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="26dp"
+            android:src="@drawable/play" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnPlay"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="17dp"
+            android:src="@drawable/tank" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageView2"
+            android:layout_centerHorizontal="true"
+            android:text="Draw And Race"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="monospace"
+            android:textStyle="bold"
+            android:textSize="5mm"
+            />
 
     </RelativeLayout>
 
