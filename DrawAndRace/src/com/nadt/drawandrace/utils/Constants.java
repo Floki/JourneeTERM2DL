@@ -2,18 +2,6 @@ package com.nadt.drawandrace.utils;
 
 public class Constants {
 
-	/*
-	 * Levels
-	 */
-	public static final String EASY = "EASY";
-	public static final String NORMAL = "NORMAL";
-	public static final String HARD = "HARD";
-	
-	/*
-	 * Thread running and shared object
-	 */
-	public static boolean running;
-	public static int score;
 	public static long FPS = 100;
 	
 	
