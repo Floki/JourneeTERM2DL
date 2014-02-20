@@ -15,6 +15,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -52,6 +53,21 @@ public class GameView extends SurfaceView {
 			if(gameEngine != null) {
 				if(gameEngine.getPlaySprite() != null) {
 					gameEngine.getPlaySprite().draw(canvas, paint);
+				}
+			}
+			RaceTrack map = gameEngine.getMap();
+			paint.setColor(Color.GRAY);
+			int xPosition = gameEngine.getXPosition();
+			int yPosition = gameEngine.getYPosition();
+			for(int y = 0; y < 10; y++) {
+				for(int x = 0; x < 10; x++) {
+					if(map.wallIn(x, y)) {
+						Rect wall = new Rect(x * map.getWallSize() - xPosition,
+											 y * map.getWallSize() - yPosition,
+											 x * map.getWallSize() + map.getWallSize() - xPosition,
+											 y * map.getWallSize() + map.getWallSize() - yPosition);
+						canvas.drawRect(wall, paint);
+					}
 				}
 			}
 		}

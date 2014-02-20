@@ -9,11 +9,7 @@ public class CarActive extends Sprite {
 	}
 	
 	public void moveWithSpeed(float speed) {
-		float angle = super.getAngle();
-		float nextX = ((float)Math.cos(Math.toRadians(angle + 90))) * speed;
-		float nextY = ((float)Math.sin(Math.toRadians(angle + 90))) * speed;
-		Tools.log(this, "Move information : " + angle + " " + nextX + " " + nextY);
-		super.setPosition(super.getX() - nextX, super.getY() - nextY);
+		
 	}
 
 }
