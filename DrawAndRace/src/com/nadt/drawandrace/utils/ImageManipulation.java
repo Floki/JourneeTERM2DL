@@ -32,26 +32,51 @@ public final class ImageManipulation {
 	 * Returns a black and white (only black and white, no grey) bitmap of the
 	 * given bitmap
 	 * 
-	 * //TODO : optimize ? 
-	 * 
+	 * // TODO : optimize ? 
+	 * // TODO : //
+	 * // TODO : log %
 	 * @param bmpSrc
 	 * @return
 	 */
-	public static Bitmap toBlackAndWhite(Bitmap bmpSrc) {
-		int width, height;
+	public static Bitmap toBlackAndWhite(final Bitmap bmpSrc) {
+		final int width;
+		final int height;
 		height = bmpSrc.getHeight();
 		width = bmpSrc.getWidth();
+		
+		final Bitmap bmpBlackAndWhite = toGrayscale(bmpSrc);
+		
+		
+		Thread thread = new Thread()
+		{
+		    @Override
+		    public void run() {
+		        try {
+		            while(true) {
+		                sleep(1000);
+		        		int color;
+		        		for (int i = width; i-- > 0;) {
+		        			for (int j = height; j-- > 0;) {
+		        				color = bmpSrc.getPixel(i, j) > threshold ? Color.WHITE
+		        						: Color.BLACK;
+		        				bmpBlackAndWhite.setPixel(i, j, color);
+		        			}
+		        		}
+		            }
+		        } catch (InterruptedException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		};
 
-		Bitmap bmpBlackAndWhite = toGrayscale(bmpSrc);
-		int color;
-		for (int i = width; i-- > 0;) {
-			for (int j = height; j-- > 0;) {
-				color = bmpSrc.getPixel(i, j) > threshold ? Color.BLACK
-						: Color.WHITE;
-				bmpBlackAndWhite.setPixel(i, j, color);
-			}
+		thread.start();
+		
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
 		return bmpBlackAndWhite;
 	}
 
