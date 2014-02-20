@@ -39,8 +39,8 @@ public class GameEngine {
 	}
 	
 	private void playLoop() {
-		playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getX(), playerShape.getY()));
 		if(userIsTouching) {
+			playerShape.setAngle(Tools.getAngle(userTouchX, userTouchY, playerShape.getX(), playerShape.getY()));
 			playerShape.moveWithSpeed(GameActivity.virtualXToScreenX(10));
 		}
 	}

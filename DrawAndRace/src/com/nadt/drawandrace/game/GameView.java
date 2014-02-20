@@ -22,6 +22,8 @@ import android.view.SurfaceView;
 public class GameView extends SurfaceView {
 	private SurfaceHolder holder;
 	private GameEngine gameEngine;
+	private boolean canDraw;
+	private long initTime;
 	
 	public GameView(Context context) {
 		super(context);
@@ -32,20 +34,26 @@ public class GameView extends SurfaceView {
 		init();
 	}
 	
-	@SuppressLint("WrongCall")
 	private void init() {
 		//setBackgroundColor(Color.BLUE);
+		canDraw = false;
+		initTime = System.currentTimeMillis();
 	}
 
 	protected void onDraw(Canvas canvas) {
 		if(canvas == null) {
 			return;
 		} 
-		canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-		Paint paint = new Paint();
-		if(gameEngine != null) {
-			if(gameEngine.getPlaySprite() != null) {
-				gameEngine.getPlaySprite().draw(canvas, paint);
+		if(!canDraw) {
+			canDraw = System.currentTimeMillis() - initTime > 1000;
+		}
+		else {
+			canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+			Paint paint = new Paint();
+			if(gameEngine != null) {
+				if(gameEngine.getPlaySprite() != null) {
+					gameEngine.getPlaySprite().draw(canvas, paint);
+				}
 			}
 		}
 	}
