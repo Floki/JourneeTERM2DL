@@ -66,6 +66,8 @@ public class GameActivity extends CustomActivity implements SurfaceHolder.Callba
 				final int action = event.getAction();
 				switch(action) {
 				case MotionEvent.ACTION_DOWN:
+					gameEngine.isTouching(true);
+					gameEngine.setUserTouchPosition(event.getX(), event.getY());
 				case MotionEvent.ACTION_MOVE:
 					gameEngine.isTouching(true);
 					gameEngine.setUserTouchPosition(event.getX(), event.getY());

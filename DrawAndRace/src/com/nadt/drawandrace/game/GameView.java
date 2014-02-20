@@ -35,7 +35,6 @@ public class GameView extends SurfaceView {
 	}
 	
 	private void init() {
-		//setBackgroundColor(Color.BLUE);
 		canDraw = false;
 		initTime = System.currentTimeMillis();
 	}
