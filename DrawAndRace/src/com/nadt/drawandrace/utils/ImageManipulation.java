@@ -20,7 +20,7 @@ public final class ImageManipulation {
 
 	public static final String TMP_FILE_NAME = "/tmp.png";
 	public static final String BLACK_WHITE_FILE_PATH = Constants.storage + TMP_FILE_NAME;
-	public static int threshold = 127;
+	public static int threshold = Color.GRAY;
 
 	/**
 	 * Private constructor to prevent class instanciation
@@ -42,8 +42,7 @@ public final class ImageManipulation {
 		height = bmpSrc.getHeight();
 		width = bmpSrc.getWidth();
 
-		Bitmap bmpBlackAndWhite = Bitmap.createBitmap(width, height,
-				Bitmap.Config.RGB_565);
+		Bitmap bmpBlackAndWhite = toGrayscale(bmpSrc);
 		int color;
 		for (int i = width; i-- > 0;) {
 			for (int j = height; j-- > 0;) {
