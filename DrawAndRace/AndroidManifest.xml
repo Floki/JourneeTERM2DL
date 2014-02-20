@@ -33,15 +33,7 @@
         <activity 
             android:noHistory="true"
             android:screenOrientation="portrait" 
-            android:name="com.nadt.keepthebeatsurvival.game.Game"></activity>
-		<activity 
-		    android:noHistory="true"
-		    android:screenOrientation="portrait" 
-		    android:name="com.nadt.keepthebeatsurvival.parameters.Parameterseters"></activity>
-		<activity 
-		    android:noHistory="true"
-		    android:screenOrientation="portrait" 
-		    android:name="com.nadt.drawandrace.ScoreActivity"></activity>
+            android:name="com.nadt.drawandrace.game.GameActivity"></activity>
 
     </application>
 
